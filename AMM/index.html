@@ -1,0 +1,564 @@
+<!-- ============================================
+     FILE: index.html (Main Website)
+     LOCATION: /index.html
+     ============================================ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMM - All Maintenance Matters | Professional Handyman Services</title>
+    <meta name="description" content="Professional handyman services in Johannesburg & Pretoria. Electrical, construction, road works, home repairs. 15+ years experience. 24/7 emergency service.">
+    <meta name="keywords" content="handyman Johannesburg, electrician Pretoria, construction services, home repairs, road maintenance, emergency repairs">
+    <meta property="og:title" content="AMM - All Maintenance Matters">
+    <meta property="og:description" content="Professional handyman services for all your maintenance needs.">
+    <meta property="og:type" content="website">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <!-- Cookie Consent -->
+    <div class="cookie-banner" id="cookieBanner">
+        <p>We use cookies to improve your experience. By continuing, you agree to our <a href="#">Privacy Policy</a>.</p>
+        <button class="cookie-btn" onclick="acceptCookies()">Accept</button>
+    </div>
+
+    <!-- Exit Intent Popup -->
+    <div class="exit-popup" id="exitPopup">
+        <div class="exit-popup-content">
+            <button class="close-popup" onclick="closeExitPopup()"><i class="fas fa-times"></i></button>
+            <i class="fas fa-gift" style="font-size: 48px; color: var(--primary-orange); margin-bottom: 20px;"></i>
+            <h3>Wait! Don't Miss Out</h3>
+            <p>Get <strong>10% OFF</strong> your first service when you book today!</p>
+            <div class="discount">10% OFF</div>
+            <button class="btn-primary" onclick="closeExitPopup(); smoothScroll('contact')" style="margin-top: 20px;">Claim Offer Now</button>
+            <p style="font-size: 12px; color: #666; margin-top: 15px;">Limited time offer. Valid for new customers only.</p>
+        </div>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <button class="lightbox-close" onclick="closeLightbox()"><i class="fas fa-times"></i></button>
+        <img src="" alt="Project" id="lightboxImg">
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="close-menu" onclick="toggleMobileMenu()"><i class="fas fa-times"></i></button>
+        <a href="#home" onclick="toggleMobileMenu(); smoothScroll('home')">Home</a>
+        <a href="#services" onclick="toggleMobileMenu(); smoothScroll('services')">Services</a>
+        <a href="#pricing" onclick="toggleMobileMenu(); smoothScroll('pricing')">Pricing</a>
+        <a href="#booking" onclick="toggleMobileMenu(); smoothScroll('booking')">Book Online</a>
+        <a href="#calculator" onclick="toggleMobileMenu(); smoothScroll('calculator')">Get Quote</a>
+        <a href="#projects" onclick="toggleMobileMenu(); smoothScroll('projects')">Projects</a>
+        <a href="#testimonials" onclick="toggleMobileMenu(); smoothScroll('testimonials')">Reviews</a>
+        <a href="#faq" onclick="toggleMobileMenu(); smoothScroll('faq')">FAQ</a>
+        <a href="#contact" onclick="toggleMobileMenu(); smoothScroll('contact')">Contact</a>
+        <a href="tel:+27123456789" style="color: var(--primary-orange); margin-top: 30px;"><i class="fas fa-phone"></i> Call Now</a>
+    </div>
+
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <img src="https://i.imgur.com/placeholder.png" alt="AMM Logo" class="loader-logo" id="loaderLogo">
+        <div class="loader-text">ALL MAINTENANCE MATTERS</div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <div class="toast-icon"><i class="fas fa-check"></i></div>
+        <div><strong>Success!</strong><p id="toastMessage">Message sent successfully</p></div>
+    </div>
+
+    <!-- Floating Elements -->
+    <a href="https://wa.me/27123456789?text=Hi%20AMM%2C%20I%20need%20a%20quote%20for%20maintenance%20work" class="floating-whatsapp" target="_blank" title="Chat on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+    <a href="#contact" class="floating-quote" onclick="smoothScroll('contact')"><i class="fas fa-calculator"></i><span>Get Quote</span></a>
+    
+    <!-- AI Chatbot -->
+    <div class="chatbot" onclick="toggleChatbot()" title="Ask our AI Assistant"><i class="fas fa-robot"></i></div>
+    <div class="chatbot-window" id="chatbotWindow">
+        <div class="chatbot-header">
+            <img src="https://i.imgur.com/placeholder.png" alt="AMM">
+            <div>
+                <h4>AMM Assistant</h4>
+                <p>Online - Ready to help</p>
+            </div>
+            <button class="chatbot-close" onclick="toggleChatbot()"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="chatbot-messages" id="chatMessages">
+            <div class="chat-message bot">Hi! I'm the AMM virtual assistant. How can I help you today? I can answer questions about our services, pricing, or help you book an appointment.</div>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" placeholder="Type your message..." id="chatInput" onkeypress="handleChatKey(event)">
+            <button onclick="sendChatMessage()"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <!-- Emergency Bar -->
+    <div class="emergency-bar">
+        <span><i class="fas fa-exclamation-circle"></i> 24/7 Emergency Service Available</span>
+        <a href="tel:+27123456789"><i class="fas fa-phone-alt"></i> Call Now: 012 345 6789</a>
+    </div>
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="top-bar">
+            <div class="top-bar-content">
+                <div><i class="fas fa-map-marker-alt"></i> Servicing Johannesburg & Pretoria | <i class="fas fa-clock"></i> Mon-Sat: 7AM-6PM | 24/7 Emergency</div>
+                <div><a href="tel:+27123456789"><i class="fas fa-phone"></i> 012 345 6789</a> | <a href="mailto:info@allmaintenancematters.co.za"><i class="fas fa-envelope"></i> info@allmaintenancematters.co.za</a></div>
+            </div>
+        </div>
+        <nav class="nav">
+            <a href="#" class="logo-container" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                <img src="https://i.imgur.com/placeholder.png" alt="AMM Logo" class="logo-image" id="headerLogo">
+                <div class="logo-text">
+                    <span class="logo-main">ALL MAINTENANCE</span>
+                    <span class="logo-sub">MATTERS</span>
+                </div>
+            </a>
+
+            <div class="nav-links">
+                <a href="#home" onclick="smoothScroll('home')">Home</a>
+                <a href="#services" onclick="smoothScroll('services')">Services</a>
+                <a href="#pricing" onclick="smoothScroll('pricing')">Pricing</a>
+                <a href="#booking" onclick="smoothScroll('booking')">Book Online</a>
+                <a href="#projects" onclick="smoothScroll('projects')">Projects</a>
+                <a href="#contact" onclick="smoothScroll('contact')">Contact</a>
+                <a href="/admin" style="color: var(--primary-orange);"><i class="fas fa-lock"></i> Admin</a>
+            </div>
+
+            <a href="https://wa.me/27123456789" class="cta-button" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></button>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="hero-badge"><i class="fas fa-tools"></i> Licensed & Insured | 15+ Years Experience</div>
+                <h1>NO JOB TOO BIG<span>NO JOB TOO SMALL</span></h1>
+                <p class="hero-description">Professional handyman services for all your maintenance needs. From electrical work to construction, road repairs to home renovations - we handle it all with expertise and reliability.</p>
+                <div class="hero-buttons">
+                    <a href="#calculator" class="btn-primary" onclick="smoothScroll('calculator')"><i class="fas fa-calculator"></i> Instant Quote</a>
+                    <a href="#booking" class="btn-secondary" onclick="smoothScroll('booking')"><i class="fas fa-calendar-alt"></i> Book Online</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="hero-stat"><div class="hero-stat-number" id="statYears">0</div><div class="hero-stat-label">Years Experience</div></div>
+                    <div class="hero-stat"><div class="hero-stat-number" id="statJobs">0</div><div class="hero-stat-label">Jobs Completed</div></div>
+                    <div class="hero-stat"><div class="hero-stat-number" id="statRating">0</div><div class="hero-stat-label">Google Rating</div></div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=800&h=600&fit=crop" alt="Handyman at work" class="hero-image-main">
+                <div class="floating-tools">
+                    <div class="tool-icon"><i class="fas fa-bolt"></i></div>
+                    <div class="tool-text"><h4>Electrical</h4><p>Licensed & Certified</p></div>
+                </div>
+                <div class="floating-tools">
+                    <div class="tool-icon"><i class="fas fa-hard-hat"></i></div>
+                    <div class="tool-text"><h4>Construction</h4><p>Building & Repairs</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="section-header">
+            <div class="section-tag"><i class="fas fa-wrench"></i> What We Do</div>
+            <h2 class="section-title">OUR SERVICES</h2>
+            <p class="section-subtitle">From minor repairs to major construction projects, we have the skills and equipment to handle any maintenance task professionally.</p>
+        </div>
+        <div class="services-grid" id="servicesGrid">
+            <!-- Services loaded from database.js -->
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div class="section-header">
+            <div class="section-tag"><i class="fas fa-tags"></i> Transparent Pricing</div>
+            <h2 class="section-title">SERVICE PACKAGES</h2>
+            <p class="section-subtitle">No hidden fees. Get upfront pricing with our standardized service packages.</p>
+        </div>
+        <div class="pricing-grid" id="pricingGrid">
+            <!-- Pricing loaded from database.js -->
+        </div>
+    </section>
+
+    <!-- Online Booking Section -->
+    <section class="booking" id="booking">
+        <div class="section-header">
+            <div class="section-tag" style="color: var(--primary-orange);"><i class="fas fa-calendar-check"></i> Book Online</div>
+            <h2 class="section-title" style="color: var(--white);">SCHEDULE YOUR SERVICE</h2>
+            <p class="section-subtitle" style="color: #999;">Choose your preferred date and time. We'll confirm within 2 hours.</p>
+        </div>
+        <div class="booking-container">
+            <div class="booking-calendar">
+                <div class="calendar-header">
+                    <button class="calendar-nav" onclick="changeMonth(-1)"><i class="fas fa-chevron-left"></i></button>
+                    <h3 id="currentMonth">November 2024</h3>
+                    <button class="calendar-nav" onclick="changeMonth(1)"><i class="fas fa-chevron-right"></i></button>
+                </div>
+                <div class="calendar-grid" id="calendarGrid">
+                    <!-- Calendar generated by main.js -->
+                </div>
+                <h4 style="margin: 30px 0 15px; font-size: 18px;">Available Time Slots</h4>
+                <div class="time-slots" id="timeSlots">
+                    <div class="time-slot" onclick="selectTime(this)">08:00</div>
+                    <div class="time-slot" onclick="selectTime(this)">10:00</div>
+                    <div class="time-slot" onclick="selectTime(this)">12:00</div>
+                    <div class="time-slot" onclick="selectTime(this)">14:00</div>
+                    <div class="time-slot disabled">16:00</div>
+                    <div class="time-slot" onclick="selectTime(this)">16:00</div>
+                </div>
+                <button class="btn-primary" style="width: 100%; margin-top: 30px;" onclick="confirmBooking()">
+                    <i class="fas fa-check-circle"></i> Confirm Booking
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote Calculator -->
+    <section class="calculator" id="calculator">
+        <div class="section-header">
+            <div class="section-tag"><i class="fas fa-calculator"></i> Instant Quote</div>
+            <h2 class="section-title">GET AN ESTIMATE</h2>
+            <p class="section-subtitle">Calculate your project cost instantly. Final price may vary based on site inspection.</p>
+        </div>
+        <div class="calculator-container">
+            <div class="calculator-box">
+                <div class="calc-row">
+                    <div class="calc-group">
+                        <label>Service Type</label>
+                        <select id="calcService" onchange="calculateQuote()">
+                            <option value="">Select service...</option>
+                            <option value="electrical" data-rate="450">Electrical Work (R450/hr)</option>
+                            <option value="plumbing" data-rate="400">Plumbing (R400/hr)</option>
+                            <option value="painting" data-rate="120">Painting (R120/m²)</option>
+                            <option value="paving" data-rate="350">Paving (R350/m²)</option>
+                            <option value="construction" data-rate="850">Construction (R850/m²)</option>
+                        </select>
+                    </div>
+                    <div class="calc-group">
+                        <label>Size/Duration</label>
+                        <input type="number" id="calcSize" placeholder="Hours or m²" oninput="calculateQuote()">
+                    </div>
+                </div>
+                <div class="calc-row">
+                    <div class="calc-group">
+                        <label>Urgency</label>
+                        <select id="calcUrgency" onchange="calculateQuote()">
+                            <option value="1">Standard (7 days)</option>
+                            <option value="1.3">Express (3 days) +30%</option>
+                            <option value="1.5">Emergency (24h) +50%</option>
+                        </select>
+                    </div>
+                    <div class="calc-group">
+                        <label>Material Quality</label>
+                        <select id="calcMaterial" onchange="calculateQuote()">
+                            <option value="1">Standard</option>
+                            <option value="1.2">Premium +20%</option>
+                            <option value="1.5">Luxury +50%</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="calc-result" id="calcResult" style="display: none;">
+                    <h3>Estimated Cost</h3>
+                    <div class="calc-price" id="calcPrice">R0</div>
+                    <p class="calc-note">*Final quote after site inspection. Valid for 30 days.</p>
+                    <button class="btn-white" onclick="bookFromCalculator()" style="margin-top: 20px;">
+                        <i class="fas fa-calendar-check"></i> Book This Service
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="why-us">
+        <div class="why-us-content">
+            <div class="why-us-image">
+                <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&h=700&fit=crop" alt="Construction worker" class="why-us-img">
+                <div class="experience-badge"><div class="years">15+</div><div class="text">Years<br>Experience</div></div>
+            </div>
+            <div>
+                <div class="section-tag"><i class="fas fa-star"></i> Why Choose Us</div>
+                <h2 class="section-title" style="text-align: left; margin-bottom: 40px;">TRUSTED BY HOMEOWNERS & BUSINESSES</h2>
+                <div class="why-us-features">
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="fas fa-certificate"></i></div>
+                        <div class="feature-content"><h3>Fully Licensed & Insured</h3><p>Complete peace of mind with full licensing, insurance coverage (R5M), and compliance with all building codes.</p></div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="fas fa-clock"></i></div>
+                        <div class="feature-content"><h3>On-Time, Every Time</h3><p>We respect your schedule. Our team arrives on time and completes work efficiently with minimal disruption.</p></div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                        <div class="feature-content"><h3>Quality Guarantee</h3><p>All work backed by our satisfaction guarantee. 3-12 month warranties on all services. We fix it free if issues arise.</p></div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="fas fa-money-bill-wave"></i></div>
+                        <div class="feature-content"><h3>Transparent Pricing</h3><p>Detailed quotes upfront, no hidden fees. EFT, cash, card accepted. Payment plans for large projects.</p></div>
+                    </div>
+                </div>
+                <div class="certificates">
+                    <div class="cert-badge"><i class="fas fa-check-circle"></i><span>Licensed Electrical</span></div>
+                    <div class="cert-badge"><i class="fas fa-check-circle"></i><span>BBBEE Level 1</span></div>
+                    <div class="cert-badge"><i class="fas fa-check-circle"></i><span>Insured R5M</span></div>
+                    <div class="cert-badge"><i class="fas fa-check-circle"></i><span>ISO 9001</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Gallery -->
+    <section class="projects" id="projects">
+        <div class="section-header">
+            <div class="section-tag" style="color: var(--primary-orange);"><i class="fas fa-images"></i> Our Work</div>
+            <h2 class="section-title">RECENT PROJECTS</h2>
+            <p class="section-subtitle" style="color: #999;">Take a look at some of our completed maintenance and construction projects.</p>
+        </div>
+        <div class="gallery-filters">
+            <button class="gallery-filter active" onclick="filterGallery('all')">All</button>
+            <button class="gallery-filter" onclick="filterGallery('electrical')">Electrical</button>
+            <button class="gallery-filter" onclick="filterGallery('construction')">Construction</button>
+            <button class="gallery-filter" onclick="filterGallery('roads')">Roads</button>
+            <button class="gallery-filter" onclick="filterGallery('renovation')">Renovation</button>
+        </div>
+        <div class="projects-grid" id="projectsGrid">
+            <!-- Projects loaded from database.js -->
+        </div>
+        <div class="before-after">
+            <h3 style="text-align: center; margin-bottom: 30px; color: var(--white); font-size: 28px;">TRANSFORMATION</h3>
+            <div class="comparison-slider" id="comparisonSlider">
+                <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=800&h=400&fit=crop" alt="Before" class="before">
+                <img src="https://images.unsplash.com/photo-1556909114-44e3e70034e2?w=800&h=400&fit=crop" alt="After" class="after" id="afterImage">
+                <div class="slider-handle" id="sliderHandle"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimonials">
+        <div class="testimonials-header">
+            <div>
+                <div class="section-tag"><i class="fas fa-comments"></i> Testimonials</div>
+                <h2 class="section-title" style="margin: 0;">WHAT CLIENTS SAY</h2>
+            </div>
+            <div class="google-reviews">
+                <div class="google-icon"><i class="fab fa-google"></i></div>
+                <div>
+                    <div class="google-rating" id="googleRating">4.9 <span>/ 5.0</span></div>
+                    <div class="stars" style="margin: 0; font-size: 14px;"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                    <div style="font-size: 12px; color: #666;">Based on <span id="reviewCount">127</span> reviews</div>
+                </div>
+            </div>
+        </div>
+        <div class="testimonials-slider">
+            <div class="testimonials-track" id="testimonialsTrack">
+                <!-- Testimonials loaded from database.js -->
+            </div>
+            <div class="slider-controls">
+                <button class="slider-btn" onclick="scrollTestimonials(-1)"><i class="fas fa-chevron-left"></i></button>
+                <button class="slider-btn" onclick="scrollTestimonials(1)"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Area -->
+    <section class="service-area">
+        <div class="section-header">
+            <div class="section-tag"><i class="fas fa-map-marked-alt"></i> Service Area</div>
+            <h2 class="section-title">WHERE WE WORK</h2>
+            <p class="section-subtitle">We service Johannesburg, Pretoria, and surrounding areas within a 50km radius.</p>
+        </div>
+        <div class="service-area-content">
+            <div class="area-checker">
+                <h3>Check If We Cover Your Area</h3>
+                <p style="color: var(--medium-gray); margin-bottom: 20px;">Enter your suburb to see if you're in our service zone.</p>
+                <div class="area-input-group">
+                    <input type="text" class="area-input" id="areaInput" placeholder="Enter your suburb (e.g., Sandton)">
+                    <button class="area-btn" onclick="checkArea()">Check</button>
+                </div>
+                <div class="area-result" id="areaResult"></div>
+                <div style="margin-top: 25px; padding-top: 25px; border-top: 2px solid #eee;">
+                    <h4 style="margin-bottom: 15px; font-size: 16px;">Popular Areas We Serve:</h4>
+                    <div style="display: flex; flex-wrap: wrap; gap: 10px;" id="serviceAreas">
+                        <!-- Areas loaded from database.js -->
+                    </div>
+                </div>
+            </div>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d114584.70457012346!2d28.04002455!3d-26.17150455!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e950c6855ca2b4b%3A0xe2e9e5c5e5e5e5e5!2sJohannesburg!5e0!3m2!1sen!2sza!4v1234567890" allowfullscreen="" loading="lazy"></iframe>
+                <div class="service-radius"><i class="fas fa-ruler-combined"></i> 50km Service Radius</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq" id="faq">
+        <div class="section-header">
+            <div class="section-tag"><i class="fas fa-question-circle"></i> FAQ</div>
+            <h2 class="section-title">COMMON QUESTIONS</h2>
+            <p class="section-subtitle">Find answers to frequently asked questions about our services.</p>
+        </div>
+        <div class="faq-grid" id="faqGrid">
+            <!-- FAQ loaded from database.js -->
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2>READY TO START YOUR PROJECT?</h2>
+            <p>Get a free, no-obligation quote for your maintenance or construction needs. We respond within 24 hours.</p>
+            <div class="cta-buttons">
+                <a href="#calculator" class="btn-white" onclick="smoothScroll('calculator')"><i class="fas fa-calculator"></i> Get Instant Quote</a>
+                <a href="#booking" class="btn-black" onclick="smoothScroll('booking')"><i class="fas fa-calendar-check"></i> Book Online Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="contact-content">
+            <div class="contact-info">
+                <div class="section-tag"><i class="fas fa-envelope"></i> Get In Touch</div>
+                <h3>LET'S DISCUSS YOUR PROJECT</h3>
+                <p style="color: var(--medium-gray); margin-bottom: 30px; line-height: 1.8;">Whether you need emergency repairs or planning a major renovation, we're here to help. Reach out and we'll get back to you within 24 hours.</p>
+
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+                        <div class="contact-text"><h4>Phone</h4><a href="tel:+27123456789">012 345 6789</a></div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fab fa-whatsapp"></i></div>
+                        <div class="contact-text"><h4>WhatsApp</h4><a href="https://wa.me/27123456789" target="_blank">072 123 4567</a></div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                        <div class="contact-text"><h4>Email</h4><a href="mailto:info@allmaintenancematters.co.za">info@allmaintenancematters.co.za</a></div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div class="contact-text"><h4>Office</h4><p>123 Main Street, Sandton<br>Johannesburg, 2196</p></div>
+                    </div>
+                </div>
+
+                <div class="business-hours">
+                    <h4><i class="fas fa-clock"></i> Business Hours</h4>
+                    <div class="hours-row"><span class="day">Monday - Friday</span><span class="time">07:00 - 18:00</span></div>
+                    <div class="hours-row"><span class="day">Saturday</span><span class="time">08:00 - 14:00</span></div>
+                    <div class="hours-row"><span class="day">Sunday</span><span class="time">Closed</span></div>
+                    <div class="hours-row" style="margin-top: 10px; padding-top: 10px; border-top: 2px solid var(--primary-orange);">
+                        <span class="day" style="color: var(--primary-orange);"><i class="fas fa-ambulance"></i> Emergency</span>
+                        <span class="time" style="color: var(--primary-orange);">24/7 Available</span>
+                    </div>
+                </div>
+
+                <div class="social-links">
+                    <a href="#" class="social-link" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/27123456789" class="social-link" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#" class="social-link" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+
+            <form class="contact-form" id="quoteForm" onsubmit="handleSubmit(event)">
+                <div class="form-row">
+                    <div class="form-group"><label>First Name *</label><input type="text" name="firstName" placeholder="John" required></div>
+                    <div class="form-group"><label>Last Name *</label><input type="text" name="lastName" placeholder="Doe" required></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>Phone *</label><input type="tel" name="phone" placeholder="072 123 4567" required></div>
+                    <div class="form-group"><label>Email *</label><input type="email" name="email" placeholder="john@example.com" required></div>
+                </div>
+                <div class="form-group">
+                    <label>Service Needed *</label>
+                    <select name="service" required id="serviceSelect">
+                        <option value="">Select a service...</option>
+                    </select>
+                </div>
+                <div class="form-group"><label>Suburb/Area *</label><input type="text" name="area" placeholder="e.g., Sandton, Johannesburg" required></div>
+                <div class="form-group"><label>Project Details *</label><textarea name="message" placeholder="Tell us about your project..." required></textarea></div>
+                <div class="form-group">
+                    <div class="file-upload" onclick="document.getElementById('fileUpload').click()">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p style="margin-top: 10px; font-weight: 600;">Click to upload photos</p>
+                        <p style="font-size: 13px; color: #999;">Max 5 images (JPG, PNG)</p>
+                        <input type="file" id="fileUpload" multiple accept="image/*" style="display: none;" onchange="handleFileUpload(this)">
+                    </div>
+                    <div id="uploadedFiles" style="margin-top: 10px;"></div>
+                </div>
+                <div class="checkbox-group"><input type="checkbox" id="urgent" name="urgent"><label for="urgent">This is an urgent request (24-48 hours)</label></div>
+                <div class="checkbox-group"><input type="checkbox" id="consent" name="consent" required><label for="consent">I agree to the <a href="#">Privacy Policy</a> and consent to being contacted.</label></div>
+                <button type="submit" class="submit-btn" id="submitBtn"><i class="fas fa-paper-plane"></i> Send Message</button>
+                <p style="text-align: center; margin-top: 20px; font-size: 13px; color: #666;"><i class="fas fa-lock"></i> Your information is secure and will never be shared.</p>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <img src="https://i.imgur.com/placeholder.png" alt="AMM Logo" class="logo-footer" id="footerLogo">
+                <p>All Maintenance Matters - your trusted partner for all maintenance, repair, and construction needs in Johannesburg and Pretoria. Quality workmanship, reliable service, fair prices since 2009.</p>
+                <div class="payment-methods">
+                    <h4>We Accept:</h4>
+                    <div class="payment-icons">
+                        <i class="fas fa-money-bill-wave" title="Cash"></i>
+                        <i class="fas fa-university" title="EFT"></i>
+                        <i class="fas fa-credit-card" title="Card"></i>
+                        <i class="fab fa-cc-visa" title="Visa"></i>
+                        <i class="fab fa-cc-mastercard" title="Mastercard"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="#services"><i class="fas fa-chevron-right"></i> Electrical</a></li>
+                    <li><a href="#services"><i class="fas fa-chevron-right"></i> Construction</a></li>
+                    <li><a href="#services"><i class="fas fa-chevron-right"></i> Road Works</a></li>
+                    <li><a href="#services"><i class="fas fa-chevron-right"></i> Home Repairs</a></li>
+                    <li><a href="#services"><i class="fas fa-chevron-right"></i> Emergency</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                    <li><a href="#projects"><i class="fas fa-chevron-right"></i> Projects</a></li>
+                    <li><a href="#testimonials"><i class="fas fa-chevron-right"></i> Testimonials</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Careers</a></li>
+                    <li><a href="/admin"><i class="fas fa-chevron-right"></i> Admin Login</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Terms of Service</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Cookie Policy</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> PAIA Manual</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 <span>All Maintenance Matters</span>. All rights reserved. | Reg: 2009/123456/07 | VAT: 4120211330<br>Designed with <i class="fas fa-heart" style="color: var(--primary-orange);"></i> for quality service</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/database.js"></script>
+    <script src="js/ui-renderer.js"></script>
+    <script src="js/chatbot.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

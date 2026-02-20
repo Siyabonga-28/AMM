@@ -1,0 +1,21 @@
+{
+  "name": "All Maintenance Matters",
+  "short_name": "AMM",
+  "description": "Professional handyman services in Johannesburg & Pretoria",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FF6B00",
+  "theme_color": "#FF6B00",
+  "icons": [
+    {
+      "src": "https://i.imgur.com/placeholder.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://i.imgur.com/placeholder.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
